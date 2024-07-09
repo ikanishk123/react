@@ -1,38 +1,30 @@
-function count(input, callback) {
+function Alphabet(input) {
+    const letters = input.toLowerCase().split('');
     const frequency = {};
-    input.toLowerCase().split('').forEach(char => {
-        if (char >= 'a' && char <= 'z') {
-            frequency[char] = (frequency[char] || 0) + 1;
-        }
-    });
-    callback(null, frequency);
-}
 
-function findMostRepeated(frequency, callback) {
+    letters.forEach(function (char) {
+        if (char >= 'a' && char <= 'z') {
+            if (frequency[char]) {
+                frequency[char]++;
+            }
+            else {
+                frequency[char] = 1;
+            }
+        }
+    })
+
     let maxCount = 0;
     let mostFrequent = '';
-    Object.entries(frequency).forEach(([char, count]) => {
-        if (count > maxCount) {
-            maxCount = count;
+
+    for (let char in frequency) {
+        if (frequency[char] > maxCount) {
+            maxCount = frequency[char];
             mostFrequent = char;
         }
-    });
-    callback(null, { char: mostFrequent, count: maxCount });
-}
 
-const input = "Kanishk Lamba";
-
-count(input, (err, frequency) => {
-    if (err) {
-        console.error('', err);
-    } else {
-        findMostRepeated(frequency, (err, result) => {
-            if (err) {
-                console.error('', err);
-            } else {
-                console.log(`${result.char}`);
-            }
-        });
     }
-});
+    console.log(mostFrequent)
+}
+const input = "KanishkKumarLamba";
 
+Alphabet(input);
